@@ -38,21 +38,33 @@ class _CategoryProductsState extends State<CategoryProducts> {
       appBar: new AppBar(
         elevation: 0.1,
         backgroundColor: Colors.blueGrey,
-        title: Text(this.widget.category_name,style: new TextStyle(color: Colors.white),),
-        actions:<Widget> [
-          new IconButton(icon: Icon(Icons.search,color: Colors.white,), onPressed:(){
-            showSearch(context: context, delegate: ProductSearch(allProducts: all_products, recentProducts: []));
-          })
+        title: Text(
+          this.widget.category_name,
+          style: new TextStyle(color: Colors.white),
+        ),
+        actions: <Widget>[
+          new IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: ProductSearch(
+                      allProducts: all_products, recentProducts: []),
+                );
+              }),
         ],
       ),
-
-
-        body: new Column(
-          children: <Widget>[
-            ExpandedProductGrid(category_id: this.widget.category_id, category_name: this.widget.category_name,),
-          ],
-
-        ),
+      body: new Column(
+        children: <Widget>[
+          ExpandedProductGrid(
+            category_id: this.widget.category_id,
+            category_name: this.widget.category_name,
+          ),
+        ],
+      ),
     );
   }
 }

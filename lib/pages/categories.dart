@@ -1,14 +1,10 @@
 import 'dart:ui';
-
 import 'package:dio/dio.dart' as Dio;
 import 'package:feal_app/components/search_delegate.dart';
 import 'package:feal_app/pages/category_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter/cupertino.dart';
-
-
-
 
 class Categories extends StatefulWidget {
   @override
@@ -21,11 +17,13 @@ class _CategoriesState extends State<Categories> {
     var dio = Dio.Dio();
     String APIUrl =
         'http://shop.galileo.ba/api/categories?fields=name%2C%20localized_name%2C%20image%2C%20id';
-    dio.options.headers["Authorization"] = 'Bearer ' + DotEnv.env['AUTHORIZATION_TOKEN'].toString();
+    dio.options.headers["Authorization"] =
+        'Bearer ' + DotEnv.env['AUTHORIZATION_TOKEN'].toString();
     final response = await dio.get(APIUrl);
     categoryWidgets = getCategoryWidgets(response.data["categories"]);
     return response.data["categories"];
   }
+
   List all_products = [];
   Future<List> getAllProducts() async {
     var dio = Dio.Dio();
@@ -46,18 +44,21 @@ class _CategoriesState extends State<Categories> {
         child: InkWell(
           onTap: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => new CategoryProducts(
-                        category_id: value[i]["id"].toString(),
-                        category_name: value[i]["name"].toString())));
+              context,
+              MaterialPageRoute(
+                builder: (context) => new CategoryProducts(
+                  category_id: value[i]["id"].toString(),
+                  category_name: value[i]["name"].toString(),
+                ),
+              ),
+            );
           },
           child: Container(
             child: Material(
-              color: Colors.white,
+              color: Colors.blueGrey,
               elevation: 14.0,
               borderRadius: BorderRadius.circular(4.0),
-              shadowColor: Colors.white,
+              shadowColor: Colors.black87,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -67,7 +68,9 @@ class _CategoriesState extends State<Categories> {
                       child: Text(
                         value[i]["name"],
                         style: TextStyle(
-                            fontSize: 22.0, fontWeight: FontWeight.bold),
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87),
                       )),
                   Container(
                     padding: const EdgeInsets.only(
@@ -103,8 +106,6 @@ class _CategoriesState extends State<Categories> {
       //print(value.length.toString() + ' categories');
     });
     getAllProducts();
-
-
   }
 
   @override
@@ -113,52 +114,53 @@ class _CategoriesState extends State<Categories> {
       future: getCategories(),
       builder: (context, snapshot) {
         return Scaffold(
-            backgroundColor: Colors.blueGrey[200],
-            appBar: new AppBar(
-              elevation: 10,
-              backgroundColor: Colors.blueGrey,
-              title: Text(
-                'Categories',
-                style: new TextStyle(color: Colors.white),
-              ),
-              actions: <Widget>[
-                new IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      showSearch(context: context, delegate: ProductSearch(allProducts: all_products, recentProducts: []));
-
-                    }),
-              ],
+          backgroundColor: Colors.blueGrey[200],
+          appBar: new AppBar(
+            elevation: 10,
+            backgroundColor: Colors.blueGrey,
+            title: Text(
+              'Categories',
+              style: new TextStyle(color: Colors.white),
             ),
-            body: Container(
-              padding: EdgeInsets.all(10),
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: snapshot.hasData
-                          ? categoryWidgets
-                          : snapshot.hasError
-                              ? [
-                                  Text('An error has occurred'),
-                                ]
-                              : [
-                                  Container(
+            actions: <Widget>[
+              new IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    showSearch(
+                        context: context,
+                        delegate: ProductSearch(
+                            allProducts: all_products, recentProducts: []),);
+                  }),
+            ],
+          ),
+          body: Container(
+            padding: EdgeInsets.all(10),
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: snapshot.hasData
+                        ? categoryWidgets
+                        : snapshot.hasError
+                            ? [
+                                Text('An error has occurred'),
+                              ]
+                            : [
+                                Container(
                                     height: 300,
                                     alignment: Alignment.center,
-                                      child: CircularProgressIndicator()
-                                  )
-                                ],
-                    ),
-                  )
-                ],
-              ),
-            )
+                                    child: CircularProgressIndicator())
+                              ],
+                  ),
+                )
+              ],
+            ),
+          ),
         );
       },
     );

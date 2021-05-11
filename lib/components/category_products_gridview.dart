@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart' as Dio;
 import 'package:feal_app/providers/wishlist_provider.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +5,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:provider/provider.dart';
 import 'package:feal_app/providers/cart_provider.dart';
-
-
 
 class ExpandedProductGrid extends StatefulWidget {
   @override
@@ -72,29 +68,34 @@ class _ExpandedProductGridState extends State<ExpandedProductGrid> {
         if (snapshot.hasData)
           return Expanded(
             child: Container(
-                alignment: Alignment.center,
-                child: productWidgets.length > 0
-                    ? GridView.count(
-                        crossAxisCount: 3,
-                        scrollDirection: Axis.vertical,
-                        children: productWidgets,
-                      )
-                    : Text(
-                        'No products found',
-                        style: new TextStyle(fontSize: 20.0),
-                      )),
+              alignment: Alignment.center,
+              child: productWidgets.length > 0
+                  ? GridView.count(
+                      mainAxisSpacing: 0,
+                      crossAxisCount: 1,
+                      scrollDirection: Axis.vertical,
+                      children: productWidgets,
+                    )
+                  : Text(
+                      'No products found',
+                      style: new TextStyle(fontSize: 20.0),
+                    ),
+            ),
           );
         else if (snapshot.hasError)
           return Text('An error has occurred');
         else
           return Expanded(
-              child: Container(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator()));
+            child: Container(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
+            ),
+          );
       },
     );
   }
 }
+// =======Products list==========
 
 class ProductTile extends StatelessWidget {
   final String image_location;
@@ -133,24 +134,28 @@ class ProductTile extends StatelessWidget {
                         full_description: this.full_description,
                       )));
         },
-        child: Container(
-          width: 90,
-          child: ListTile(
-            title: Image.asset(
-              image_location,
-              width: 50.0,
-              height: 60.0,
-            ),
-            subtitle: Container(
-              alignment: Alignment.topCenter,
-              child: Text(
-                image_caption,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-                style: new TextStyle(
-                  fontSize: 15.0,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Container(
+            width: 50,
+            child: ListTile(
+              title: Image.asset(
+                image_location,
+                width: 100.0,
+                height: 230.0,
+              ),
+              subtitle: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    image_caption,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    style: new TextStyle(fontSize: 22.0, color: Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -192,7 +197,9 @@ class _ProductDetailsState extends State<ProductDetails> {
       dio.options.headers["Authorization"] =
           'Bearer ' + DotEnv.env['AUTHORIZATION_TOKEN'].toString();
       final response = await dio.get(APIUrl);
-      widget.category_name = response.data["categories"].length > 0 ? response.data["categories"][0]["name"].toString() : '';
+      widget.category_name = response.data["categories"].length > 0
+          ? response.data["categories"][0]["name"].toString()
+          : '';
       return response.data.toString();
     } else
       return 'categories already set';
@@ -208,13 +215,13 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     final WishlistProvider wishlistProvider =
         Provider.of<WishlistProvider>(context);
-    final CartProvider cartProvider =
-    Provider.of<CartProvider>(context);
+    final CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     return FutureBuilder(
         future: getCategoryName(),
         builder: (context, snapshot) {
           return Scaffold(
+            backgroundColor: Colors.white,
             appBar: new AppBar(
               elevation: 5,
               backgroundColor: Colors.blueGrey,
@@ -238,7 +245,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
                 ToggleIconButton(
                   initialState:
-                  cartProvider.productList.contains(widget.product_id),
+                      cartProvider.productList.contains(widget.product_id),
                   product_id: widget.product_id,
                   icon: Icon(
                     Icons.shopping_cart,
@@ -254,19 +261,20 @@ class _ProductDetailsState extends State<ProductDetails> {
             body: snapshot.hasData
                 ? new Column(children: [
                     Container(
-                      padding: EdgeInsets.all(10.0),
-                      height: 200,
+                      padding: EdgeInsets.all(13.0),
+                      height: 190,
                       child:
                           Image.asset(widget.image_location, fit: BoxFit.fill),
                     ),
                     Container(
                       width: double.infinity,
                       padding: EdgeInsets.all(15.0),
-                      color: Color(0x557C809B),
+                      color: Colors.blueGrey,
                       alignment: Alignment.center,
                       child: ExpandableText(
                         text: widget.product_name,
-                        textStyle: new TextStyle(fontSize: 30.0),
+                        textStyle:
+                            new TextStyle(fontSize: 23.0, color: Colors.black,fontWeight: FontWeight.w500),
                         maxLines: 1,
                       ),
                     ),
@@ -278,28 +286,28 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Text(
                               widget.price + ' KM',
                               style: new TextStyle(
-                                  fontSize: 30.0, fontWeight: FontWeight.bold),
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
                             ),
                             ElevatedButton(
                               onPressed: () {
-
                               },
                               style: ButtonStyle(
                                 padding: MaterialStateProperty.all<
-                                    EdgeInsetsGeometry>(EdgeInsets.all(15.0)),
+                                    EdgeInsetsGeometry>(EdgeInsets.all(10.0)),
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.blueGrey),
+                                        Colors.black54),
                               ),
                               child: Row(children: [
                                 Text(
                                   'Add to cart ',
                                   style: new TextStyle(
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: 25.0,color: Colors.white),
                                 ),
                                 Icon(
-                                  Icons.shopping_cart_outlined,
+                                  Icons.shopping_cart_outlined,color:Colors.white,
                                 ),
                               ]),
                             ),
@@ -308,23 +316,24 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Container(
                       width: double.infinity,
                       padding: EdgeInsets.all(15.0),
-                      color: Color(0x557C809B),
+                      color: Colors.blueGrey,
                       alignment: Alignment.center,
                       child: ExpandableText(
                         text: widget.short_description,
-                        textStyle: new TextStyle(fontSize: 20.0),
+                        textStyle: new TextStyle(fontSize: 23.0,color: Colors.black54),
                         maxLines: 1,
                       ),
                     ),
                     Expanded(
                       child: Container(
-                        color: Color(0x187C809B),
+                        color: Colors.white,
                         child:
                             ListView(scrollDirection: Axis.vertical, children: [
                           Container(
                             padding: EdgeInsets.all(15.0),
                             child: Html(
                               data: """ """ + widget.full_description + """ """,
+                              defaultTextStyle: TextStyle(fontSize: 22,color: Colors.black87,fontWeight:FontWeight.w400),
                             ),
                           ),
                         ]),
@@ -393,20 +402,20 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
   Widget build(BuildContext context) {
     final WishlistProvider wishlistProvider =
         Provider.of<WishlistProvider>(context);
-    final CartProvider cartProvider =
-    Provider.of<CartProvider>(context);
+    final CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     return InkWell(
       child: IconButton(
         icon: _isPressed ? widget.iconPressed : widget.icon,
         onPressed: () {
           setState(() {
-            if (_isPressed){
+            if (_isPressed) {
               wishlistProvider.removeItem(widget.product_id);
-              cartProvider.removeItem(widget.product_id);}
-            else{
+              cartProvider.removeItem(widget.product_id);
+            } else {
               wishlistProvider.addItem(widget.product_id);
-              cartProvider.addItem(widget.product_id);}
+              cartProvider.addItem(widget.product_id);
+            }
             _isPressed = !_isPressed;
           });
         },

@@ -25,7 +25,7 @@ class _CartState extends State<Cart> {
       }
       String APIUrl = 'http://shop.galileo.ba/api/products?' +
           ids_parameter +
-          'fields=name%2C%20price%2C%20localized_names%2C%20images%2C%20id%2C%20categoryId%2C%20short_description%2C%20full_description';
+          'fields=name%2C%20price%2C%20localized_names%2C%20images%2C%20id%2C%%2C%220categoryId0short_description%2C%20full_description';
       dio.options.headers["Authorization"] =
           'Bearer ' + DotEnv.env['AUTHORIZATION_TOKEN'].toString();
       final response = await dio.get(APIUrl);

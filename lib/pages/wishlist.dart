@@ -2,7 +2,7 @@ import 'package:feal_app/components/category_products_gridview.dart';
 import 'package:feal_app/providers/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart' as Dio;
-import 'package:feal_app/components/wishlist_products.dart';
+import 'file:///C:/Users/Korisnik/Desktop/praksa/Feal-Flutter-Galileo-WebShop-master/lib/ostalo/wishlist_products.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
@@ -26,8 +26,7 @@ class _WishlistState extends State<Wishlist> {
         ids_parameter += 'ids=' + widget.product_ids[i] + '&';
       }
       String APIUrl = 'http://shop.galileo.ba/api/products?' +
-          ids_parameter +
-          'fields=name%2C%20price%2C%20localized_names%2C%20images%2C%20id%2C%20categoryId%2C%20short_description%2C%20full_description';
+          ids_parameter;
       dio.options.headers["Authorization"] =
           'Bearer ' + DotEnv.env['AUTHORIZATION_TOKEN'].toString();
       final response = await dio.get(APIUrl);
@@ -91,7 +90,7 @@ class _WishlistState extends State<Wishlist> {
                     ? (productWidgets.length > 0
                         ? productWidgets
                         : [
-                            Text('Wishlist empty'),
+                            Text('Wishlist empty',style: TextStyle(fontSize: 20),),
                           ])
                     : snapshot.hasError
                         ? [
