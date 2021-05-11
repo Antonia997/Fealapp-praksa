@@ -273,8 +273,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                       alignment: Alignment.center,
                       child: ExpandableText(
                         text: widget.product_name,
-                        textStyle:
-                            new TextStyle(fontSize: 23.0, color: Colors.black,fontWeight: FontWeight.w500),
+                        textStyle: new TextStyle(
+                            fontSize: 23.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
                         maxLines: 1,
                       ),
                     ),
@@ -291,8 +293,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   color: Colors.black),
                             ),
                             ElevatedButton(
-                              onPressed: () {
-                              },
+                              onPressed: () {},
                               style: ButtonStyle(
                                 padding: MaterialStateProperty.all<
                                     EdgeInsetsGeometry>(EdgeInsets.all(10.0)),
@@ -304,10 +305,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 Text(
                                   'Add to cart ',
                                   style: new TextStyle(
-                                      fontSize: 25.0,color: Colors.white),
+                                      fontSize: 25.0, color: Colors.white),
                                 ),
                                 Icon(
-                                  Icons.shopping_cart_outlined,color:Colors.white,
+                                  Icons.shopping_cart_outlined,
+                                  color: Colors.white,
                                 ),
                               ]),
                             ),
@@ -320,7 +322,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       alignment: Alignment.center,
                       child: ExpandableText(
                         text: widget.short_description,
-                        textStyle: new TextStyle(fontSize: 23.0,color: Colors.black54),
+                        textStyle: new TextStyle(
+                            fontSize: 23.0, color: Colors.black54),
                         maxLines: 1,
                       ),
                     ),
@@ -333,7 +336,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             padding: EdgeInsets.all(15.0),
                             child: Html(
                               data: """ """ + widget.full_description + """ """,
-                              defaultTextStyle: TextStyle(fontSize: 22,color: Colors.black87,fontWeight:FontWeight.w400),
+                              defaultTextStyle: TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w400),
                             ),
                           ),
                         ]),
@@ -350,7 +356,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         });
   }
 }
-
+    //============= EXPANDABLE TEXT ================
 class ExpandableText extends StatefulWidget {
   final String text;
   final TextStyle textStyle;
@@ -381,6 +387,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         ),
       );
 }
+  // ================ Toggle Icon Button For Wishlist ==================
 
 class ToggleIconButton extends StatefulWidget {
   final bool initialState;
@@ -403,7 +410,6 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
     final WishlistProvider wishlistProvider =
         Provider.of<WishlistProvider>(context);
 
-
     return InkWell(
       child: IconButton(
         icon: _isPressed ? widget.iconPressed : widget.icon,
@@ -411,10 +417,8 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
           setState(() {
             if (_isPressed) {
               wishlistProvider.removeItem(widget.product_id);
-
             } else {
               wishlistProvider.addItem(widget.product_id);
-
             }
             _isPressed = !_isPressed;
           });
@@ -429,6 +433,7 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
     super.initState();
   }
 }
+// ================ Icon Toggle Button For Cart ==============
 
 class IconToggleButton extends StatefulWidget {
   final bool initialState;
@@ -463,12 +468,11 @@ class _IconToggleButtonState extends State<IconToggleButton> {
         },
       ),
     );
-
   }
+
   @override
   void initState() {
     _isPressed = widget.initialState;
     super.initState();
   }
-
 }
