@@ -243,7 +243,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     color: Colors.white,
                   ),
                 ),
-                ToggleIconButton(
+                IconToggleButton(
                   initialState:
                       cartProvider.productList.contains(widget.product_id),
                   product_id: widget.product_id,
@@ -402,7 +402,7 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
   Widget build(BuildContext context) {
     final WishlistProvider wishlistProvider =
         Provider.of<WishlistProvider>(context);
-    final CartProvider cartProvider = Provider.of<CartProvider>(context);
+
 
     return InkWell(
       child: IconButton(
@@ -411,10 +411,10 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
           setState(() {
             if (_isPressed) {
               wishlistProvider.removeItem(widget.product_id);
-              cartProvider.removeItem(widget.product_id);
+
             } else {
               wishlistProvider.addItem(widget.product_id);
-              cartProvider.addItem(widget.product_id);
+
             }
             _isPressed = !_isPressed;
           });
@@ -428,4 +428,47 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
     _isPressed = widget.initialState;
     super.initState();
   }
+}
+
+class IconToggleButton extends StatefulWidget {
+  final bool initialState;
+  final String product_id;
+  final Icon icon;
+  final Icon iconPressed;
+
+  IconToggleButton(
+      {this.initialState, this.product_id, this.icon, this.iconPressed});
+  @override
+  _IconToggleButtonState createState() => _IconToggleButtonState();
+}
+
+class _IconToggleButtonState extends State<IconToggleButton> {
+  bool _isPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final CartProvider cartProvider = Provider.of<CartProvider>(context);
+    return InkWell(
+      child: IconButton(
+        icon: _isPressed ? widget.iconPressed : widget.icon,
+        onPressed: () {
+          setState(() {
+            if (_isPressed) {
+              cartProvider.removeItem(widget.product_id);
+            } else {
+              cartProvider.addItem(widget.product_id);
+            }
+            _isPressed = !_isPressed;
+          });
+        },
+      ),
+    );
+
+  }
+  @override
+  void initState() {
+    _isPressed = widget.initialState;
+    super.initState();
+  }
+
 }
