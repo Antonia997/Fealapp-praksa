@@ -5,7 +5,6 @@ import 'package:dio/dio.dart' as Dio;
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
-
 class Cart extends StatefulWidget {
   List<String> product_ids = [];
   Cart({this.product_ids});
@@ -34,6 +33,7 @@ class _CartState extends State<Cart> {
     }
     return 'no products';
   }
+
   List getProductWidgets(value) {
     List<Widget> newProductWidgets = [];
     for (var i = 0; i < value.length; i++) {
@@ -55,6 +55,7 @@ class _CartState extends State<Cart> {
     }
     return newProductWidgets;
   }
+
   @override
   void initState() {
     getProducts();
@@ -63,8 +64,7 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
-    final CartProvider cartProvider =
-    Provider.of<CartProvider>(context);
+    final CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     return FutureBuilder(
         future: getProducts(),
@@ -79,32 +79,36 @@ class _CartState extends State<Cart> {
               ),
             ),
             body: //new Cart_products(),
-            Container(
+                Container(
               padding: EdgeInsets.all(10),
               child: ListView(
                 scrollDirection: Axis.vertical,
                 children: snapshot.hasData
                     ? (productWidgets.length > 0
-                    ? productWidgets
-                    : [
-                  Text('Cart empty'),
-                ])
+                        ? productWidgets
+                        : [
+                            Text(
+                              'Cart empty',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ])
                     : snapshot.hasError
-                    ? [
-                  Text('An error has occurred'),
-                ]
-                    : [
-                  Container(
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
+                        ? [
+                            Text('An error has occurred'),
+                          ]
+                        : [
+                            Container(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(),
+                            ),
+                          ],
               ),
             ),
           );
         });
   }
 }
+
 class CartTile extends StatelessWidget {
   final String image_location;
   final String product_name;
@@ -116,12 +120,12 @@ class CartTile extends StatelessWidget {
 
   CartTile(
       {this.image_location,
-        this.product_name,
-        this.product_id,
-        this.category_name,
-        this.price,
-        this.short_description,
-        this.full_description});
+      this.product_name,
+      this.product_id,
+      this.category_name,
+      this.price,
+      this.short_description,
+      this.full_description});
 
   @override
   Widget build(BuildContext context) {

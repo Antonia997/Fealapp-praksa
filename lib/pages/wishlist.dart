@@ -25,8 +25,7 @@ class _WishlistState extends State<Wishlist> {
       for (var i = 0; i < widget.product_ids.length; i++) {
         ids_parameter += 'ids=' + widget.product_ids[i] + '&';
       }
-      String APIUrl = 'http://shop.galileo.ba/api/products?' +
-          ids_parameter;
+      String APIUrl = 'http://shop.galileo.ba/api/products?' + ids_parameter;
       dio.options.headers["Authorization"] =
           'Bearer ' + DotEnv.env['AUTHORIZATION_TOKEN'].toString();
       final response = await dio.get(APIUrl);
@@ -90,7 +89,10 @@ class _WishlistState extends State<Wishlist> {
                     ? (productWidgets.length > 0
                         ? productWidgets
                         : [
-                            Text('Wishlist empty',style: TextStyle(fontSize: 20),),
+                            Text(
+                              'Wishlist empty',
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ])
                     : snapshot.hasError
                         ? [

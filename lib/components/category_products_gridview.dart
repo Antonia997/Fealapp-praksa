@@ -356,7 +356,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         });
   }
 }
-    //============= EXPANDABLE TEXT ================
+
+//============= EXPANDABLE TEXT ================
 class ExpandableText extends StatefulWidget {
   final String text;
   final TextStyle textStyle;
@@ -387,7 +388,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         ),
       );
 }
-  // ================ Toggle Icon Button For Wishlist ==================
+// ================ Toggle Icon Button For Wishlist ==================
 
 class ToggleIconButton extends StatefulWidget {
   final bool initialState;

@@ -10,16 +10,11 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:feal_app/components/search_delegate.dart';
 
 //my Own imports
-//import 'package:feal_app/components/products.dart.';
 import 'package:feal_app/pages/cart.dart';
 import 'package:feal_app/pages/wishlist.dart';
 import 'package:feal_app/pages/categories.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/Korisnik/Desktop/praksa/Feal-Flutter-Galileo-WebShop-master/lib/ostalo/login.dart';
-import 'package:feal_app/pages/sign_in.dart';
-import 'package:feal_app/models/authentication.dart';
-import 'package:feal_app/services/auth.dart';
 
 import 'pages/cart.dart';
 import 'providers/cart_provider.dart';
@@ -115,7 +110,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.blueGrey,
               elevation: 14.0,
               borderRadius: BorderRadius.circular(9.0),
-              shadowColor: Colors.white,
+              shadowColor: Colors.blue,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -468,7 +463,7 @@ class _HomePageState extends State<HomePage> {
                             'Categories',
                             style: new TextStyle(
                               color: Colors.black,
-                              fontSize: 22.0,
+                              fontSize: 23.0,
                               fontWeight: FontWeight.bold,
                             ),
                             //textAlign: TextAlign.center,
@@ -592,7 +587,6 @@ class _HomePageState extends State<HomePage> {
 
         ),
         ),*/
-
             ],
           ),
         );

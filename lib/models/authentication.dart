@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:feal_app/pages/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -13,25 +12,19 @@ class Authenticate extends StatefulWidget {
 
 class _AuthenticateState extends State<Authenticate> {
   bool showSignIn = true;
-  void toggleView(){
-    setState(()=> showSignIn = !showSignIn);
+  void toggleView() {
+    setState(() => showSignIn = !showSignIn);
   }
 
   @override
   Widget build(BuildContext context) {
-    if(showSignIn){
-      return SignIn(toggleView:toggleView);
-    }
-    else{
-      return Register(toggleView:toggleView);
+    if (showSignIn) {
+      return SignIn(toggleView: toggleView);
+    } else {
+      return Register(toggleView: toggleView);
     }
   }
-
 }
-
-
-
-
 
 /*class Authentication with ChangeNotifier {
   Future<void> singUp(String email, String password) async {

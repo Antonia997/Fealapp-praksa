@@ -57,8 +57,8 @@ class _CategoriesState extends State<Categories> {
             child: Material(
               color: Colors.blueGrey,
               elevation: 14.0,
-              borderRadius: BorderRadius.circular(4.0),
-              shadowColor: Colors.black87,
+              borderRadius: BorderRadius.circular(9.0),
+              shadowColor: Colors.blue,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -130,9 +130,10 @@ class _CategoriesState extends State<Categories> {
                   ),
                   onPressed: () {
                     showSearch(
-                        context: context,
-                        delegate: ProductSearch(
-                            allProducts: all_products, recentProducts: []),);
+                      context: context,
+                      delegate: ProductSearch(
+                          allProducts: all_products, recentProducts: []),
+                    );
                   }),
             ],
           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'category_products_gridview.dart';
 
 class ProductSearch extends SearchDelegate {
@@ -14,7 +13,7 @@ class ProductSearch extends SearchDelegate {
       IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
-          query = '';
+          query = "";
         },
       ),
     ];
@@ -104,7 +103,10 @@ class ProductSearch extends SearchDelegate {
                 );
               },
             )
-          : Text('No results'),
+          : Text(
+              'No results',
+              style: TextStyle(fontSize: 20),
+            ),
       itemCount: suggestionList.length,
     );
   }
@@ -140,7 +142,11 @@ class ProductSearch extends SearchDelegate {
     }
 
     if (matches.isEmpty) {
-      return [TextSpan(text: source)];
+      return [
+        TextSpan(
+          text: source,
+        )
+      ];
     }
     matches.sort((a, b) => a.start.compareTo(b.start));
 
