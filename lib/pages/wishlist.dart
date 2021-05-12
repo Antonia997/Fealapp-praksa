@@ -92,11 +92,16 @@ class _WishlistState extends State<Wishlist> {
                             Text(
                               'Wishlist empty',
                               style: TextStyle(fontSize: 20),
+                              textAlign: TextAlign.center,
                             ),
                           ])
                     : snapshot.hasError
                         ? [
-                            Text('An error has occurred'),
+                            Text(
+                              'An error has occurred',
+                              style: TextStyle(fontSize: 20),
+                              textAlign: TextAlign.center,
+                            ),
                           ]
                         : [
                             Container(

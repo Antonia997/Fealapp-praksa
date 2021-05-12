@@ -76,6 +76,7 @@ class _CartState extends State<Cart> {
               title: Text(
                 'Cart',
                 style: new TextStyle(color: Colors.white),
+
               ),
             ),
             body: //new Cart_products(),
@@ -90,11 +91,14 @@ class _CartState extends State<Cart> {
                             Text(
                               'Cart empty',
                               style: TextStyle(fontSize: 20),
+                              textAlign: TextAlign.center,
                             ),
                           ])
                     : snapshot.hasError
                         ? [
-                            Text('An error has occurred'),
+                            Text('An error has occurred',
+                              style: TextStyle(fontSize: 20),
+                              textAlign: TextAlign.center,),
                           ]
                         : [
                             Container(

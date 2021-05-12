@@ -185,6 +185,8 @@ class ProductDetails extends StatefulWidget {
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
+
+
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
@@ -217,6 +219,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         Provider.of<WishlistProvider>(context);
     final CartProvider cartProvider = Provider.of<CartProvider>(context);
 
+    bool _isPressed;
+
     return FutureBuilder(
         future: getCategoryName(),
         builder: (context, snapshot) {
@@ -243,7 +247,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     color: Colors.white,
                   ),
                 ),
-                IconToggleButton(
+                /*IconToggleButton(
                   initialState:
                       cartProvider.productList.contains(widget.product_id),
                   product_id: widget.product_id,
@@ -255,7 +259,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Icons.remove_shopping_cart,
                     color: Colors.white,
                   ),
-                ),
+                ),*/
               ],
             ),
             body: snapshot.hasData
@@ -290,29 +294,59 @@ class _ProductDetailsState extends State<ProductDetails> {
                               style: new TextStyle(
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                  color: Colors.black)
                             ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all<
-                                    EdgeInsetsGeometry>(EdgeInsets.all(10.0)),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.black54),
-                              ),
+
+                            Container(
                               child: Row(children: [
-                                Text(
-                                  'Add to cart ',
-                                  style: new TextStyle(
-                                      fontSize: 25.0, color: Colors.white),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(color: Colors.grey,width: 5),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Add to cart ',
+                                        style: new TextStyle(
+                                            fontSize: 22.5, color: Colors.black,fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Icon(
-                                  Icons.shopping_cart_outlined,
-                                  color: Colors.white,
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Container(
+                                    width:70,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: <Color>[Colors.grey, Colors.blueGrey],
+                                      ),
+                                      borderRadius: BorderRadius.circular(4.0)
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        IconToggleButton(
+                                          initialState:
+                                          cartProvider.productList.contains(widget.product_id),
+                                          product_id: widget.product_id,
+                                          icon: Icon(
+                                            Icons.shopping_cart,
+                                            color: Colors.black,
+                                          ),
+                                          iconPressed: Icon(
+                                            Icons.remove_shopping_cart,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ]),
                             ),
+
                           ]),
                     ),
                     Container(
