@@ -81,13 +81,14 @@ class ProductSearch extends SearchDelegate {
                 "images/categories/all products/" +
                     suggestionList[index].split(":")[1].toString() +
                     ".jpg",
-                fit: BoxFit.fitHeight,
+               fit: BoxFit.fitHeight,
                 width: 50,
               ),
               title: RichText(
                 text: TextSpan(
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.blueGrey,
+                    fontSize: 19,
                   ),
                   children: highlightOccurrences(
                       suggestionList[index].split(":")[0], query),
