@@ -373,7 +373,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                               defaultTextStyle: TextStyle(
                                   fontSize: 22,
                                   color: Colors.black87,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ),
                         ]),
